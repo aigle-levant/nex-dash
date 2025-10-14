@@ -4,23 +4,21 @@ export async function loginController(req, res) {
     try {
         const { email, password } = req.body;
 
-        if (!email || !password) {
+        const missingFields = [];
+        if (!email) missingFields.push("email");
+        if (!password) missingFields.push("password");
+
+        if (missingFields.length > 0) {
             return res.status(400).json({
                 error: "400",
-                message: "All fields required",
-                cause: "Incomplete input received."
+                message: "Validation failed: Missing required fields",
+                cause: "Incomplete input received",
+                missingFields,
+                hint: "Please provide all required fields to proceed"
             });
         }
 
         const userToken = await login(email, password);
-
-        if (!userToken) {
-            return res.status(401).json({
-                error: "401",
-                message: "Invalid credentials",
-                cause: "Email or password is incorrect."
-            });
-        }
 
         res.status(200).json({
             message: "Login successful",
@@ -29,10 +27,18 @@ export async function loginController(req, res) {
 
     } catch (err) {
         console.error(err);
+        if (err.message === "User does not exist" || err.message === "Invalid credentials") {
+            return res.status(401).json({
+                error: "401",
+                message: "Invalid credentials",
+                cause: "Email or password is incorrect"
+            });
+        }
+
         res.status(500).json({
             error: "500",
             message: "Server error",
-            cause: "A malfunction happened in the server's functions."
+            cause: "A malfunction happened in the server's functions"
         });
     }
 }
@@ -41,11 +47,19 @@ export async function registerController(req, res) {
     try {
         const { name, email, password, gstin } = req.body;
 
-        if (!name || !email || !password || !gstin) {
+        const missingFields = [];
+        if (!name) missingFields.push("name");
+        if (!email) missingFields.push("email");
+        if (!password) missingFields.push("password");
+        if (!gstin) missingFields.push("gstin");
+
+        if (missingFields.length > 0) {
             return res.status(400).json({
                 error: "400",
-                message: "All fields required",
-                cause: "Incomplete input received."
+                message: "Validation failed: Missing required fields",
+                cause: "Incomplete input received",
+                missingFields,
+                hint: "Please provide all required fields to proceed"
             });
         }
 
@@ -62,14 +76,14 @@ export async function registerController(req, res) {
             return res.status(409).json({
                 error: "409",
                 message: "User already exists",
-                cause: "The email provided is already registered."
+                cause: "The email provided is already registered"
             });
         }
 
         res.status(500).json({
             error: "500",
             message: "Server error",
-            cause: "A malfunction happened in the server's functions."
+            cause: "A malfunction happened in the server's functions"
         });
     }
 }

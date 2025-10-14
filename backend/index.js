@@ -18,7 +18,7 @@ app.use(express.urlencoded({
 }));
 
 // routers
-app.use("/api/auth", authRouter);
+app.use("/auth", authRouter);
 // app.use("/api/customers", customerRouter);
 
 // initial

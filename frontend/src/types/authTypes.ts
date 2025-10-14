@@ -1,10 +1,17 @@
 export interface LoginFormValues {
-  Email: string;
-  Password: string;
+  email: string;
+  password: string;
 }
 export interface SignupFormValues {
-  Name: string;
-  Email: string;
-  Password: string;
-  GSTIN: string;
+  name: string;
+  email: string;
+  password: string;
+  gstin: string;
 }
+
+export type ApiResponse<T> = {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+};

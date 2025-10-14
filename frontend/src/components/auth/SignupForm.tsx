@@ -1,17 +1,27 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { Button } from "../ui/button";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { handleRegister } from "@/api/authApi";
 import type { SignupFormValues } from "@/types/authTypes";
+import { Button } from "../ui/button";
+import { useState } from "react";
 
 export default function SignupForm() {
+  const navigate = useNavigate();
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>();
 
-  const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
-    console.log(data);
-    // call your signup API here
+  const onSubmit = async (data: SignupFormValues) => {
+    setServerError(null);
+    const response = await handleRegister(data, navigate);
+
+    if (!response.success) {
+      setServerError(response.error || response.message);
+    }
   };
 
   return (
@@ -22,6 +32,7 @@ export default function SignupForm() {
       <a href="/" className="text-2xl font-main text-center mb-2 py-8">
         Nex-Dash
       </a>
+
       <h2 className="text-2xl font-heading font-bold text-center mb-4">
         Create your account
       </h2>
@@ -30,12 +41,12 @@ export default function SignupForm() {
         <input
           type="text"
           placeholder="Name"
-          {...register("Name", { required: "Name is required" })}
+          {...register("name", { required: "Name is required" })}
           className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600"
         />
-        {errors.Name?.message && (
+        {errors.name && (
           <span className="text-red-500 text-sm mt-1">
-            {errors.Name.message}
+            {errors.name.message}
           </span>
         )}
       </div>
@@ -44,7 +55,7 @@ export default function SignupForm() {
         <input
           type="email"
           placeholder="Email"
-          {...register("Email", {
+          {...register("email", {
             required: "Email is required",
             pattern: {
               value:
@@ -54,9 +65,9 @@ export default function SignupForm() {
           })}
           className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600"
         />
-        {errors.Email?.message && (
+        {errors.email && (
           <span className="text-red-500 text-sm mt-1">
-            {errors.Email.message}
+            {errors.email.message}
           </span>
         )}
       </div>
@@ -65,19 +76,19 @@ export default function SignupForm() {
         <input
           type="password"
           placeholder="Password"
-          {...register("Password", {
+          {...register("password", {
             required: "Password is required",
             pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{8,}$/,
+              value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
               message:
                 "Password must be minimum 8 characters, include letters and numbers",
             },
           })}
           className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600"
         />
-        {errors.Password?.message && (
+        {errors.password && (
           <span className="text-red-500 text-sm mt-1">
-            {errors.Password.message}
+            {errors.password.message}
           </span>
         )}
       </div>
@@ -86,19 +97,24 @@ export default function SignupForm() {
         <input
           type="text"
           placeholder="GSTIN"
-          {...register("GSTIN", { required: "GSTIN is required" })}
+          {...register("gstin", { required: "GSTIN is required" })}
           className="px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600"
         />
-        {errors.GSTIN?.message && (
+        {errors.gstin && (
           <span className="text-red-500 text-sm mt-1">
-            {errors.GSTIN.message}
+            {errors.gstin.message}
           </span>
         )}
       </div>
 
-      <Button type="submit" className="w-full py-2">
-        Sign Up
+      {serverError && (
+        <div className="text-red-500 text-sm text-center">{serverError}</div>
+      )}
+
+      <Button type="submit" className="w-full py-2" disabled={isSubmitting}>
+        {isSubmitting ? "Signing up..." : "Sign Up"}
       </Button>
+
       <p className="font-body mt-2 text-slate-500 text-center">
         Already have an account?{" "}
         <a href="/login" className="text-slate-900 dark:text-slate-100">

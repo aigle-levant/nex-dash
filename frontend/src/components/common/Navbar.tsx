@@ -61,7 +61,7 @@ export default function Navbar() {
           </Button>
 
           <Button variant="outline" className="font-main">
-            Get Started
+            <a href="/login">Get started</a>
           </Button>
 
           <button

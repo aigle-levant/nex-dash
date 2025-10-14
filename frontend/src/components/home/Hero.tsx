@@ -6,7 +6,6 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 flex flex-col items-center justify-center text-center px-6 py-24 md:py-32 transition-colors duration-300"
     >
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center">
         <h1 className="font-main text-4xl md:text-6xl font-bold mb-6 leading-tight">
           Streamline Your Logistics
@@ -21,7 +20,7 @@ export default function Hero() {
           size="lg"
           className="bg-slate-900 font-2xl font-main dark:bg-slate-100 text-slate-100 dark:text-slate-900 hover:opacity-90 transition font-semibold"
         >
-          Get Started
+          <a href="/login">Get started</a>
         </Button>
       </div>
     </section>

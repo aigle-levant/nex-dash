@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-main: "Google Sans Code", monospace;
+  --font-body: "Geist", sans-serif;
+}
+
 @theme inline {
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -114,6 +121,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

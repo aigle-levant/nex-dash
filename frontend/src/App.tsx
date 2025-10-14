@@ -3,7 +3,7 @@ import Default from "./layout/Default";
 import Auth from "./layout/Auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Register from "./pages/Register";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 
@@ -14,7 +14,7 @@ export default function App() {
         <Route element={<Default />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/register" element={<Register />} />
         </Route>
 
         <Route element={<Auth />}>

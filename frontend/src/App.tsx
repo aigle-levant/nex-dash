@@ -4,7 +4,6 @@ import Auth from "./layout/Auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/onboarding" element={<Onboarding />} />
         </Route>
       </Routes>
     </Router>

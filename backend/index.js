@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+// routers
 import { authRouter } from "./routes/auth.routes.js";
+import { customerRouter } from './routes/customers.routes.js';
+
 // import db
 import { pool } from './db/db.js';
 
@@ -19,10 +22,10 @@ app.use(express.urlencoded({
 
 // routers
 app.use("/auth", authRouter);
-// app.use("/api/customers", customerRouter);
+app.use("/customers", customerRouter);
 
 // initial
-app.get("/", (req, res) => {
+app.get("/", (res) => {
     res.send("Works!");
 })
 app.listen(PORT, () => {

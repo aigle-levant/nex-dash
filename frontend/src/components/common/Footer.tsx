@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="w-full bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-t border-slate-300 dark:border-slate-800">
       <div className="text-center py-8 px-4 border-b border-slate-300 dark:border-slate-700">
         <p className="font-main font-medium text-2xl md:text-3xl">
-          “If it ain't broke, don't fix it.” - some developer
+          (if coffee) productivity += 400;
         </p>
       </div>
 

@@ -25,7 +25,7 @@ app.use("/auth", authRouter);
 app.use("/customers", customerRouter);
 
 // initial
-app.get("/", (res) => {
+app.get("/", (req, res) => {
     res.send("Works!");
 })
 app.listen(PORT, () => {

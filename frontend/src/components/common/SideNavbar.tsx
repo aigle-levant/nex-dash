@@ -30,7 +30,7 @@ export default function Sidebar() {
     {
       name: "Repository",
       icon: <Computer size={18} />,
-      href: "https://github.com/yourusername/yourrepo",
+      href: "https://github.com/aigle-levant/nex-dash",
     },
     {
       name: "Working",
@@ -40,13 +40,12 @@ export default function Sidebar() {
     {
       name: "Demo Video",
       icon: <Video size={18} />,
-      href: "https://your-demo-video-link.com",
+      href: "https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing",
     },
   ];
 
   return (
     <>
-      {/* ===== Mobile Header ===== */}
       <div className="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-4 py-3 bg-background border-b md:hidden font-body">
         <div className="font-bold text-xl font-main">NexDash</div>
         <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
@@ -54,13 +53,11 @@ export default function Sidebar() {
         </Button>
       </div>
 
-      {/* ===== Mobile Overlay Sidebar ===== */}
       <div
         className={`fixed inset-0 z-50 bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transform transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header with close button */}
         <div className="flex justify-between items-center px-4 py-3 border-b">
           <div className="font-bold text-xl font-main">NexDash</div>
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
@@ -68,7 +65,6 @@ export default function Sidebar() {
           </Button>
         </div>
 
-        {/* Navigation */}
         <div className="flex flex-col justify-between h-[calc(100vh-4rem)] p-4">
           <div>
             <nav className="space-y-2">
@@ -116,7 +112,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* ===== Desktop Sidebar ===== */}
       <aside className="hidden md:flex md:flex-col md:justify-between h-screen w-64 bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-r p-4">
         <div>
           <div className="flex items-center gap-2 mb-8">

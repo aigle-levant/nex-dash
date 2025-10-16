@@ -57,20 +57,22 @@ export default function Footer() {
               >
                 View Repository
               </a>
-              <a href="#" className="hover:underline">
+              <a
+                href="https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing"
+                className="hover:underline"
+              >
                 View Demo
               </a>
             </div>
           </div>
 
-          {/* Get Started */}
           <div>
             <p className="font-heading font-bold mb-3 text-xl">Get Started</p>
             <div className="flex flex-col gap-2 text-sm">
               <Link to="/login" className="hover:underline">
                 Login
               </Link>
-              <Link to="/signup" className="hover:underline">
+              <Link to="/register" className="hover:underline">
                 Register
               </Link>
             </div>

@@ -35,12 +35,18 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a href="#" className="hover:underline">
+            <a
+              href="https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing"
+              className="hover:underline"
+            >
               View demo
             </a>
           </li>
           <li>
-            <a href="#" className="hover:underline">
+            <a
+              href="https://github.com/aigle-levant/nex-dash"
+              className="hover:underline"
+            >
               View repository
             </a>
           </li>

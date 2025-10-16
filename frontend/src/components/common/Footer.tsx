@@ -46,9 +46,6 @@ export default function Footer() {
           <div>
             <p className="font-heading font-bold mb-3 text-xl">Resources</p>
             <div className="flex flex-col gap-2 text-sm">
-              <a href="#" className="hover:underline">
-                How it works
-              </a>
               <a
                 href="https://github.com/aigle-levant/nex-dash"
                 target="_blank"
@@ -61,7 +58,7 @@ export default function Footer() {
                 href="https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing"
                 className="hover:underline"
               >
-                View Demo
+                Demo + DB Entries
               </a>
             </div>
           </div>

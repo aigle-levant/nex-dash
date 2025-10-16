@@ -30,16 +30,11 @@ export default function Navbar() {
 
         <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
           <li>
-            <a href="#" className="hover:underline">
-              How it works
-            </a>
-          </li>
-          <li>
             <a
               href="https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing"
               className="hover:underline"
             >
-              View demo
+              Demo + DB entries
             </a>
           </li>
           <li>
@@ -105,17 +100,18 @@ export default function Navbar() {
         <div className="md:hidden bg-slate-100 dark:bg-slate-900 border-t border-slate-300 dark:border-slate-800 px-6 py-4">
           <ul className="flex flex-col gap-3 text-sm font-medium">
             <li>
-              <a href="#" className="hover:underline">
-                Working of Nex-Dash
+              <a
+                href="https://drive.google.com/file/d/1T6FUBR_KIKOoCv48GZf58_E4uPVBfWVE/view?usp=sharing"
+                className="hover:underline"
+              >
+                Demo Video + DB entries
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Demo Video
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="https://github.com/aigle-levant/nex-dash"
+                className="hover:underline"
+              >
                 Access Repository
               </a>
             </li>

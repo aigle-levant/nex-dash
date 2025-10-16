@@ -6,7 +6,6 @@ import {
   User,
   Computer,
   Video,
-  Wrench,
   Menu,
   X,
 } from "lucide-react";
@@ -33,12 +32,7 @@ export default function Sidebar() {
       href: "https://github.com/aigle-levant/nex-dash",
     },
     {
-      name: "Working",
-      icon: <Wrench size={18} />,
-      href: "https://your-live-working-url.com",
-    },
-    {
-      name: "Demo Video",
+      name: "Demo + DB Entries",
       icon: <Video size={18} />,
       href: "https://drive.google.com/drive/folders/1zKqJ8jqRDMkyuxUgeUrTlrewhY-QS50X?usp=sharing",
     },

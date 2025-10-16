@@ -1,36 +1,19 @@
-import { useEffect, useState } from "react";
-import { type Customer } from "@/types/dashboardTypes";
-import { getCustomers, addCustomer } from "../../api/customerApi";
-import CustomerForm from "@/components/dashboard/CustomerForm";
+import CustomerTable from "./CustomerTable";
+import CustomerForm from "./CustomerForm";
+import { useState } from "react";
 
 export default function Customers() {
-  const [customers, setCustomers] = useState<Customer[]>([]);
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
-  const fetchCustomers = async () => {
-    const data = await getCustomers();
-    setCustomers(data);
-  };
-
-  const handleAddCustomer = async (customer: Omit<Customer, "id">) => {
-    await addCustomer(customer);
-    fetchCustomers();
-  };
+  const [refresh, setRefresh] = useState(false);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Customers</h1>
-      <CustomerForm onSubmit={handleAddCustomer} />
-      <ul className="mt-4 space-y-2">
-        {customers.map((c) => (
-          <li key={c.id} className="p-2 border rounded">
-            {c.name} - {c.email} - {c.gstin}
-          </li>
-        ))}
-      </ul>
+    <div id="container" className="p-4 sm:mt-10 md:mt-0">
+      <header className="flex justify-between items-center mb-4">
+        <p className="font-main text-2xl">Customers</p>
+        <CustomerForm onAdd={() => setRefresh(!refresh)} />
+      </header>
+      <main className="main">
+        <CustomerTable key={refresh ? "refresh1" : "refresh0"} />
+      </main>
     </div>
   );
 }

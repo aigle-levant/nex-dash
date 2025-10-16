@@ -29,30 +29,26 @@ export const getProfile = async (): Promise<ApiResponse<User>> => {
 };
 
 export const getCustomers = async (): Promise<Customer[]> => {
-  const token = localStorage.getItem("token");
-  const res = await fetch(`http://localhost:8000/customers`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!res.ok) throw new Error(`Failed to fetch customers: ${res.status}`);
-  const data = await res.json();
-  return data.customers || [];
+  try {
+    const res = await api.get("/customers");
+    console.log("Retrieved data");
+    return res.data.customers || [];
+  } catch (err) {
+    const error = err as AxiosError<{ message: string }>;
+    console.error("Error fetching customers:", error);
+    return [];
+  }
 };
 
 export const addCustomer = async (
   customer: Omit<Customer, "id">
 ): Promise<Customer> => {
-  const token = localStorage.getItem("token");
-  const res = await fetch(`http://localhost:8000/customers`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(customer),
-  });
-  if (!res.ok) throw new Error(`Failed to add customer: ${res.status}`);
-  return res.json();
+  try {
+    const res = await api.post("/customers", customer);
+    return res.data.data;
+  } catch (err) {
+    const error = err as AxiosError<{ message: string }>;
+    console.error("Error adding customer:", error);
+    throw new Error(error.response?.data?.message || "Failed to add customer");
+  }
 };

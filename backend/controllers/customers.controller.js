@@ -1,5 +1,5 @@
-import { request, response } from "express";
 import { insertCustomer, selectCustomer } from "../services/customers.services.js";
+
 
 export async function handleCustomerInsertion(request, response) {
     try {
@@ -16,7 +16,7 @@ export async function handleCustomerInsertion(request, response) {
         if (!broker_id) missingFields.push("broker_id");
 
         if (missingFields.length > 0) {
-            return res.status(400).json({
+            return response.status(400).json({
                 error: "400",
                 message: "Validation failed: Missing required fields",
                 cause: "Incomplete input received",
@@ -26,10 +26,19 @@ export async function handleCustomerInsertion(request, response) {
         }
 
         const data = await insertCustomer(broker_id, name, email, gstin);
-        return res.status(201).json({
+        if (!data) {
+            return response.status(400).json({
+                error: "500",
+                message: "No data received",
+                cause: "Incomplete input received",
+                missingFields,
+                hint: "Please provide all required fields to proceed"
+            });
+        }
+        return response.status(201).json({
             status: "201",
             message: "New customer created",
-            isSuccess: data
+            data: data
         })
     } catch (err) {
         console.error("Error creating customer:", err);
@@ -51,15 +60,12 @@ export async function handleCustomerInsertion(request, response) {
 
 export async function getCustomers(request, response) {
     try {
-        const broker_id = request.user?.id;
-        const data = await selectCustomer(broker_id);
-
-        if (!data || data.rows.length === 0) {
-            return response.status(200).json({
-                message: "No customers found for this broker.",
-                customers: [],
-            });
+        if (!request.user) {
+            return response.status(403).json({ message: "Forbidden: No user info" });
         }
+
+        const broker_id = request.user.id;
+        const data = await selectCustomer(broker_id);
 
         return response.status(200).json({
             message: "Customers fetched successfully",

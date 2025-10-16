@@ -1,58 +1,78 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { addCustomer } from "@/api/dashboardApi";
 import { type Customer } from "@/types/dashboardTypes";
 
-interface Props {
-  onSubmit: (customer: Omit<Customer, "id">) => void;
-}
+type FormValues = Omit<Customer, "id">;
 
-export default function CustomerForm({ onSubmit }: Props) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Omit<Customer, "id">>();
+export default function CustomerForm({ onAdd }: { onAdd?: () => void }) {
+  const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  const submitHandler: SubmitHandler<Omit<Customer, "id">> = (data) => {
-    onSubmit(data);
-    reset();
+  const onSubmit = async (data: FormValues) => {
+    try {
+      await addCustomer(data);
+      alert("Customer added successfully!");
+      reset();
+      onAdd?.();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to add customer");
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(submitHandler)}
-      className="flex flex-col gap-2 p-4 bg-gray-100 rounded"
-    >
-      <input
-        {...register("name", { required: "Name is required" })}
-        placeholder="Name"
-        className="p-2 border"
-      />
-      {errors.name && (
-        <span className="text-red-500">{errors.name.message}</span>
-      )}
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" className="font-main">
+          Add Customer
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="font-body">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="font-main">
+            Add new customer
+          </AlertDialogTitle>
+        </AlertDialogHeader>
 
-      <input
-        {...register("email", { required: "Email is required" })}
-        placeholder="Email"
-        className="p-2 border"
-      />
-      {errors.email && (
-        <span className="text-red-500">{errors.email.message}</span>
-      )}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-3 mt-4"
+        >
+          <input
+            {...register("name")}
+            placeholder="Name"
+            className="p-2 border rounded"
+            required
+          />
+          <input
+            {...register("email")}
+            placeholder="Email"
+            type="email"
+            className="p-2 border rounded"
+            required
+          />
+          <input
+            {...register("gstin")}
+            placeholder="GSTIN"
+            className="p-2 border rounded"
+            required
+          />
 
-      <input
-        {...register("gstin", { required: "GSTIN is required" })}
-        placeholder="GSTIN"
-        className="p-2 border"
-      />
-      {errors.gstin && (
-        <span className="text-red-500">{errors.gstin.message}</span>
-      )}
-
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-2">
-        Add Customer
-      </button>
-    </form>
+          <AlertDialogFooter className="mt-2 font-main">
+            <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+            <AlertDialogAction type="submit">Add</AlertDialogAction>
+          </AlertDialogFooter>
+        </form>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

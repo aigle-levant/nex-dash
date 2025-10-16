@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
 // routers
 import { authRouter } from "./routes/auth.routes.js";
 import { customerRouter } from './routes/customers.routes.js';
@@ -31,3 +32,17 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server functions at port: ${PORT}. Please stay tuned for more updates!`)
 })
+
+// refresh token
+app.post("/auth/refresh", (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.status(403).json({ message: "No refresh token" });
+
+    try {
+        const payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+        const newAccessToken = jwt.sign({ id: payload.id }, process.env.JWT_SECRET, { expiresIn: "15m" });
+        res.json({ accessToken: newAccessToken });
+    } catch {
+        res.status(403).json({ message: "Invalid refresh token" });
+    }
+});

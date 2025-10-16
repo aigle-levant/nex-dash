@@ -8,7 +8,7 @@ export default function Protected() {
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <SideNavbar />
-      <main className="flex-1 p-4 overflow-y-auto">
+      <main className="flex-1 mt-30 md:mt-0 lg:mt-0 p-4 overflow-y-auto">
         <Outlet />
       </main>
     </div>

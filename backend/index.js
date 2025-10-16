@@ -6,9 +6,6 @@ import jwt from "jsonwebtoken";
 import { authRouter } from "./routes/auth.routes.js";
 import { customerRouter } from './routes/customers.routes.js';
 
-// import db
-import { pool } from './db/db.js';
-
 // config keys
 dotenv.config();
 const PORT = process.env.PORT || 8000;
@@ -16,6 +13,16 @@ const PORT = process.env.PORT || 8000;
 // base
 const app = express();
 app.use(cors());
+
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "http://localhost:8000",
+        "https://nex-dash-one.vercel.app/",
+    ],
+    credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true

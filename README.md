@@ -57,7 +57,7 @@ Create a .env file in the backend folder with your Neon.tech connection string (
 
 4. Run the Application:
 
-Backend: ``cd backend; node server.js``
+Backend: ``cd backend; npm start``
 Frontend: ``cd frontend; npm run dev``
 
 5. Access:

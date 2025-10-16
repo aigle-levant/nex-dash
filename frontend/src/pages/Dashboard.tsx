@@ -13,6 +13,7 @@ export default function DashboardPage() {
       setLoading(true);
       try {
         const res = await getProfile();
+        console.log("Profile data:", res?.data);
         setProfile(res?.data ?? null);
       } catch (err) {
         console.error("Failed to fetch profile:", err);

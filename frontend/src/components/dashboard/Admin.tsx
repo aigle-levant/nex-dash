@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     async function fetchAllCustomers() {
       setLoading(true);
       try {
-        const res = await api.get("/all-customers");
+        const res = await api.get("/customers");
         setCustomers(res.data.customers);
       } catch (err) {
         console.error("Error fetching all customers:", err);
@@ -52,7 +52,6 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
 
-            {/* Status Overview Card */}
             <Card>
               <CardHeader>
                 <CardTitle>Customer Status Overview</CardTitle>
@@ -67,7 +66,6 @@ export default function AdminDashboard() {
             </Card>
           </div>
 
-          {/* All Customers Table / Cards */}
           <Card>
             <CardHeader>
               <CardTitle>All Customers</CardTitle>
@@ -85,18 +83,15 @@ export default function AdminDashboard() {
                       </Avatar>
                       <div>
                         <p className="font-semibold">{c.name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {c.email}
-                        </p>
                       </div>
                     </div>
 
                     <div className="text-sm space-y-1">
-                      <p>GSTIN: {c.gstin}</p>
-                      <p>Broker ID: {c.broker_id}</p>
                       <p>
-                        Created At:{" "}
-                        {new Date(c.created_at).toLocaleDateString()}
+                        Broker:{" "}
+                        {c.broker_name
+                          ? `${c.broker_name} (ID: ${c.broker_id})`
+                          : `ID: ${c.broker_id}`}
                       </p>
                       <p>Status: {c.status || "pending"}</p>
                     </div>
@@ -111,7 +106,12 @@ export default function AdminDashboard() {
                         <div className="space-y-1">
                           <p className="font-semibold">{c.name}</p>
                           <p>{c.email}</p>
-                          <p>Broker ID: {c.broker_id}</p>
+                          <p>
+                            Broker:{" "}
+                            {c.broker_name
+                              ? `${c.broker_name} (ID: ${c.broker_id})`
+                              : `ID: ${c.broker_id}`}
+                          </p>
                           <p>Status: {c.status || "pending"}</p>
                           <p>GSTIN: {c.gstin}</p>
                           <p>

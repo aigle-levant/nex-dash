@@ -100,6 +100,7 @@ export async function profileController(req, res) {
             name: user.name,
             email: user.email,
             gstin: user.gstin || "",
+            is_admin: user.is_admin,
         });
     } catch (err) {
         console.error(err);

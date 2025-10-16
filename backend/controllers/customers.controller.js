@@ -61,11 +61,13 @@ export async function handleCustomerInsertion(request, response) {
 export async function getCustomers(request, response) {
     try {
         if (!request.user) {
-            return response.status(403).json({ message: "Forbidden: No user info" });
+            return response.status(403).json({ message: "Forbidden" });
         }
 
         const broker_id = request.user.id;
-        const data = await selectCustomer(broker_id);
+        const isAdmin = request.user.is_admin;
+
+        const data = await selectCustomer(isAdmin ? null : broker_id, isAdmin);
 
         return response.status(200).json({
             message: "Customers fetched successfully",

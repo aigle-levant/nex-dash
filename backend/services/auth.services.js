@@ -13,8 +13,10 @@ export async function login(email, password) {
     const passwordMatch = await bcrypt.compare(password, hashed);
     if (!passwordMatch) throw new Error("Invalid credentials");
 
+    const user = getUser.rows[0];
+
     const token = jwt.sign(
-        { id: getUser.rows[0].id, email: getUser.rows[0].email },
+        { id: user.id, email: user.email, is_admin: user.is_admin },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
@@ -39,7 +41,10 @@ export async function register(name, email, password, gstin) {
 }
 
 export async function getUserDetails(id) {
-    const result = await pool.query("SELECT id, name, email, gstin FROM users WHERE id=$1", [id]);
+    const result = await pool.query(
+        "SELECT id, name, email, gstin, is_admin FROM users WHERE id=$1",
+        [id]
+    );
 
     if (result.rowCount === 0) {
         throw new Error("User not found");

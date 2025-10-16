@@ -1,5 +1,6 @@
 export interface Customer {
   id: number;
+  broker_name: string;
   broker_id: number;
   name: string;
   email: string;

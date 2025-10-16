@@ -1,4 +1,4 @@
-import { pool } from "../db/db";
+import { pool } from "../db/db.js";
 
 export async function insertCustomer(broker_id, name, email, gstin) {
     const exists = await pool.query("SELECT 1 FROM customers WHERE email=$1 AND broker_id=$2", [email, broker_id]);

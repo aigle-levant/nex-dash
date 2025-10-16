@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Customer";
-import Profile from "./pages/Profile";
+import ProfilePage from "./pages/Profile";
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
         <Route element={<Protected />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customers" element={<Customer />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
         <Route path="*" element={<Home />} />

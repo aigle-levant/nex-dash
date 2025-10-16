@@ -10,17 +10,20 @@ export const handleLogin = async (
   try {
     const res = await api.post("/auth/login", data);
 
-    if (!res.data.userToken) {
+    const token = res.data.userToken || res.data.token;
+
+    if (!token) {
       throw new Error("Login failed: No token received from server");
     }
-    const token = res.data.userToken;
+
+    localStorage.setItem("token", token);
     const expiry = new Date();
     expiry.setHours(expiry.getHours() + 1);
     localStorage.setItem("token", token);
     localStorage.setItem("tokenExpiry", expiry.toISOString());
     console.log("Login done. Redirecting");
 
-    navigate("/onboarding");
+    navigate("/profile");
 
     return {
       success: true,
@@ -47,7 +50,7 @@ export const handleRegister = async (
     const res = await api.post("/auth/register", data);
     console.log("Registration done.");
 
-    navigate("/login");
+    navigate("/profile");
 
     return {
       success: true,

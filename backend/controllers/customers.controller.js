@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import { insertCustomer, selectCustomer } from "../services/customers.services";
+import { insertCustomer, selectCustomer } from "../services/customers.services.js";
 
 export async function handleCustomerInsertion(request, response) {
     try {

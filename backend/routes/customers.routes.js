@@ -1,8 +1,8 @@
 import { Router } from "express";
 // controllers
-import { getCustomers, handleCustomerInsertion } from "../controllers/customers.controller";
+import { getCustomers, handleCustomerInsertion } from "../controllers/customers.controller.js";
 // middleware
-import { authMiddleware } from "../middleware/auth";
+import { authMiddleware } from "../middleware/auth.js";
 
 export const customerRouter = Router();
 

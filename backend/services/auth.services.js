@@ -37,3 +37,13 @@ export async function register(name, email, password, gstin) {
     );
     return newUser.rows[0];
 }
+
+export async function getUserDetails(id) {
+    const result = await pool.query("SELECT id, name, email, gstin FROM users WHERE id=$1", [id]);
+
+    if (result.rowCount === 0) {
+        throw new Error("User not found");
+    }
+
+    return result.rows[0];
+}

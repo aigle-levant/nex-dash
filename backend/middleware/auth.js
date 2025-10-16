@@ -1,11 +1,10 @@
-import { request, response, next } from "express";
 import jwt from "jsonwebtoken";
 
 export function authMiddleware(request, response, next) {
     const head = request.headers.authorization;
     // no token, verification is not done yet
     if (!head || !head.startsWith("Bearer ")) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: "401",
             message: "No token provided",
             cause: "Missing token.",
@@ -21,7 +20,7 @@ export function authMiddleware(request, response, next) {
         console.log("User is legitimate.");
         next();
     } catch (err) {
-        return res.status(403).json({
+        return response.status(403).json({
             error: "403",
             message: "Invalid or expired token",
             cause: "Token is either expired or doesn't match the signed value.",

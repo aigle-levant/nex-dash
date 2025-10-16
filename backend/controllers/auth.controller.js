@@ -1,4 +1,4 @@
-import { login, register } from "../services/auth.services.js";
+import { login, register, getUserDetails } from "../services/auth.services.js";
 
 export async function loginController(req, res) {
     try {
@@ -85,5 +85,24 @@ export async function registerController(req, res) {
             message: "Server error",
             cause: "A malfunction happened in the server's functions"
         });
+    }
+}
+
+export async function profileController(req, res) {
+    try {
+        const userId = req.user?.id;
+        if (!userId) return res.status(403).json({ message: "Forbidden" });
+
+        const user = await getUserDetails(userId);
+
+        res.status(200).json({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            gstin: user.gstin || "",
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
     }
 }

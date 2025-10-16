@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 
 export default function Profile() {
   const [user, setUser] = useState<User & { gstin: string }>({
-    id: "",
+    id: 0,
     name: "",
     email: "",
     gstin: "",
+    is_admin: false,
   });
 
   useEffect(() => {

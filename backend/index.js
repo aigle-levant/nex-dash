@@ -12,16 +12,27 @@ const PORT = process.env.PORT || 8000;
 
 // base
 const app = express();
-app.use(cors());
+// cors, seriously man
+// ive added em all
+// no trouble pls
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:8000",
+    "https://nex-dash-one.vercel.app"
+];
 
-app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:8000",
-        "https://nex-dash-one.vercel.app/",
-    ],
-    credentials: true,
-}));
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({
